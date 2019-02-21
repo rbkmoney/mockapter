@@ -48,6 +48,11 @@
             <artifactId>damsel</artifactId>
             <version>1.256-2afe121</version>
         </dependency>
+        <dependency>
+            <groupId>com.rbkmoney.geck</groupId>
+            <artifactId>serializer</artifactId>
+            <version>0.6.9</version>
+        </dependency>
 
         <!--spring-->
         <dependency>

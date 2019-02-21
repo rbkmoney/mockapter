@@ -11,7 +11,7 @@ import java.util.stream.LongStream;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ResponseDelayTest {
+public class DelayTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper()
             .configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);

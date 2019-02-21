@@ -16,7 +16,7 @@ import static com.rbkmoney.woody.api.flow.error.WErrorType.UNDEFINED_RESULT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class ResultWithErrorTest {
+public class ErrorResultTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper()
             .configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
@@ -25,12 +25,12 @@ public class ResultWithErrorTest {
     public void testUnavailableResultError() throws IOException {
         Result result = objectMapper
                 .readValue(
-                        "{'error':{ 'error_definition': {'unavailable_result': {'reason': 'Deadline reached'}}}}",
+                        "{'error':{ 'unavailable_result': {'reason': 'Deadline reached'}}}",
                         Result.class
                 );
 
         try {
-            result.getResult(new EntryStateModel());
+            result.getResult(EntryStateModel.builder().build());
             fail();
         } catch (WUnavailableResultException ex) {
             WErrorDefinition errorDefinition = ex.getErrorDefinition();
@@ -44,12 +44,12 @@ public class ResultWithErrorTest {
     public void testUndefinedResultError() throws IOException {
         Result result = objectMapper
                 .readValue(
-                        "{'error': { 'error_definition': {'undefined_result': {'reason': 'Undefined result'}}}}",
+                        "{'error': { 'undefined_result': {'reason': 'Undefined result'}}}",
                         Result.class
                 );
 
         try {
-            result.getResult(new EntryStateModel());
+            result.getResult(EntryStateModel.builder().build());
             fail();
         } catch (WUndefinedResultException ex) {
             WErrorDefinition errorDefinition = ex.getErrorDefinition();
@@ -63,11 +63,11 @@ public class ResultWithErrorTest {
     public void testUnexpectedError() throws IOException {
         Result result = objectMapper
                 .readValue(
-                        "{'error': {'error_definition': {'unexpected_error': {}}}}",
+                        "{'error': {'unexpected_error': {}}}",
                         Result.class
                 );
 
-        result.getResult(new EntryStateModel());
+        result.getResult(EntryStateModel.builder().build());
         fail();
     }
 

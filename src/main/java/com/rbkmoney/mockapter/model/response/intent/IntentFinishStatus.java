@@ -9,8 +9,8 @@ import com.rbkmoney.mockapter.model.response.Result;
         include = JsonTypeInfo.As.WRAPPER_OBJECT
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = FinishIntent.class, name = "finish"),
-        @JsonSubTypes.Type(value = SleepIntent.class, name = "sleep")
+        @JsonSubTypes.Type(value = SuccessFinishStatus.class, name = "success"),
+        @JsonSubTypes.Type(value = FailureFinishStatus.class, name = "failure")
 })
-public interface Intent extends Result {
+public interface IntentFinishStatus extends Result {
 }

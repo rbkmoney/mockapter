@@ -30,7 +30,9 @@
             "value":500
          },
          "intent":{
-            "finish":{}
+            "finish":{
+               "success":{}
+            }
          }
       }
    },
@@ -40,10 +42,8 @@
       },
       "response":{
          "error":{
-            "error_definition":{
-               "unavailable_result":{
-                  "reason":"Deadline reached"
-               }
+            "unavailable_result":{
+              "reason":"Deadline reached"
             }
          }
       }
@@ -61,7 +61,7 @@
          },
          "intent":{
             "sleep":{
-              "timeout": 5000
+               "timeout":5000
             }
          }
       }
@@ -77,7 +77,9 @@
             "upper":85
          },
          "intent":{
-            "finish":{}
+            "finish":{
+               "success":{}
+            }
          }
       }
    },
@@ -87,10 +89,11 @@
       },
       "response":{
          "intent":{
-            "failure":{
-               "code":"01",
-               "reason":"Unsupported Card",
-               "sub":"authorization_failed:payment_tool_rejected:bank_card_rejected:card_unsupported"
+            "finish":{
+               "failure":{
+                  "reason":"Unsupported Card",
+                  "sub":"authorization_failed:payment_tool_rejected:bank_card_rejected:card_unsupported"
+               }
             }
          }
       }
