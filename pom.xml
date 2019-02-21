@@ -43,6 +43,11 @@
             <artifactId>shared-resources</artifactId>
             <version>${shared.resources.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>damsel</artifactId>
+            <version>1.256-2afe121</version>
+        </dependency>
 
         <!--spring-->
         <dependency>
