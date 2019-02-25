@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rbkmoney.mockapter.model.EntryStateModel;
 import com.rbkmoney.mockapter.model.ExitStateModel;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @ToString
+@EqualsAndHashCode
 public class FinishIntent implements Intent {
 
-    @JsonInclude
     private final IntentFinishStatus intentFinishStatus;
 
     @JsonCreator
@@ -18,7 +19,7 @@ public class FinishIntent implements Intent {
     }
 
     @Override
-    public ExitStateModel getResult(EntryStateModel entryStateModel) {
-        return intentFinishStatus.getResult(entryStateModel);
+    public ExitStateModel buildResult(EntryStateModel entryStateModel) {
+        return intentFinishStatus.buildResult(entryStateModel);
     }
 }

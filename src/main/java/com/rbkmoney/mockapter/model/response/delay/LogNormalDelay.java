@@ -3,21 +3,24 @@ package com.rbkmoney.mockapter.model.response.delay;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 @ToString
+@EqualsAndHashCode
 public class LogNormalDelay implements Delay {
 
-    @JsonProperty("median")
     private final double median;
 
-    @JsonProperty("sigma")
     private final double sigma;
 
     @JsonCreator
-    public LogNormalDelay(@JsonProperty("median") double median, @JsonProperty("sigma") double sigma) {
+    public LogNormalDelay(
+            @JsonProperty(value = "median", required = true) double median,
+            @JsonProperty(value = "sigma", required = true) double sigma
+    ) {
         this.median = median;
         this.sigma = sigma;
     }

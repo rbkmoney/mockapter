@@ -28,12 +28,10 @@ public class IntentResultTest {
                         "{'intent': {'finish':{'success':{}}}}",
                         Result.class
                 );
-        ExitStateModel exitStateModel = result.getResult(EntryStateModel.builder().build());
+        ExitStateModel exitStateModel = result.buildResult(EntryStateModel.builder().build());
         assertNotNull(exitStateModel);
-        Intent intent = exitStateModel.getIntent();
-        assertNotNull(intent);
-        assertTrue(intent.isSetFinish());
-        assertTrue(intent.getFinish().getStatus().isSetSuccess());
+        assertFalse(exitStateModel.hasFailure());
+        assertFalse(exitStateModel.hasSleepIntent());
     }
 
     @Test
@@ -43,14 +41,10 @@ public class IntentResultTest {
                         "{'intent': {'finish':{'failure':{'reason':'Card unsupported', 'sub':'authorization_failed:payment_tool_rejected:bank_card_rejected:card_unsupported'}}}}",
                         Result.class
                 );
-        ExitStateModel exitStateModel = result.getResult(EntryStateModel.builder().build());
+        ExitStateModel exitStateModel = result.buildResult(EntryStateModel.builder().build());
         assertNotNull(exitStateModel);
-        Intent intent = exitStateModel.getIntent();
-        assertNotNull(intent);
-        assertTrue(intent.isSetFinish());
-        FinishStatus finishStatus = intent.getFinish().getStatus();
-        assertTrue(finishStatus.isSetFailure());
-        Failure failure = finishStatus.getFailure();
+        assertTrue(exitStateModel.hasFailure());
+        Failure failure = exitStateModel.getFailure();
         assertEquals("authorization_failed", failure.getCode());
         assertEquals("Card unsupported", failure.getReason());
         assertEquals("authorization_failed:payment_tool_rejected:bank_card_rejected:card_unsupported", TErrorUtil.toStringVal(failure));
@@ -63,13 +57,11 @@ public class IntentResultTest {
                         "{'intent': {'sleep':{'timeout': 5000}}}",
                         Result.class
                 );
-        ExitStateModel exitStateModel = result.getResult(EntryStateModel.builder().build());
+        ExitStateModel exitStateModel = result.buildResult(EntryStateModel.builder().build());
         assertNotNull(exitStateModel);
-        Intent intent = exitStateModel.getIntent();
-        assertNotNull(intent);
-        assertTrue(intent.isSetSleep());
-        assertTrue(intent.getSleep().isSetTimer());
-        Timer timer = intent.getSleep().getTimer();
+        assertTrue(exitStateModel.hasSleepIntent());
+        assertTrue(exitStateModel.getSleepIntent().isSetTimer());
+        Timer timer = exitStateModel.getSleepIntent().getTimer();
         assertTrue(timer.isSetTimeout());
         assertEquals(5000, timer.getTimeout());
     }

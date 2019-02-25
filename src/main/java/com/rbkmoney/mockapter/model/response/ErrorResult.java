@@ -19,7 +19,7 @@ public class ErrorResult implements Result {
     }
 
     @Override
-    public ExitStateModel getResult(EntryStateModel entryStateModel) {
+    public ExitStateModel buildResult(EntryStateModel entryStateModel) {
         throw errorDefinition.newException();
     }
 }

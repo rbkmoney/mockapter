@@ -30,7 +30,7 @@ public class ErrorResultTest {
                 );
 
         try {
-            result.getResult(EntryStateModel.builder().build());
+            result.buildResult(EntryStateModel.builder().build());
             fail();
         } catch (WUnavailableResultException ex) {
             WErrorDefinition errorDefinition = ex.getErrorDefinition();
@@ -49,7 +49,7 @@ public class ErrorResultTest {
                 );
 
         try {
-            result.getResult(EntryStateModel.builder().build());
+            result.buildResult(EntryStateModel.builder().build());
             fail();
         } catch (WUndefinedResultException ex) {
             WErrorDefinition errorDefinition = ex.getErrorDefinition();
@@ -67,7 +67,7 @@ public class ErrorResultTest {
                         Result.class
                 );
 
-        result.getResult(EntryStateModel.builder().build());
+        result.buildResult(EntryStateModel.builder().build());
         fail();
     }
 

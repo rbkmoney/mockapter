@@ -5,30 +5,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rbkmoney.damsel.base.Timer;
 import com.rbkmoney.mockapter.model.EntryStateModel;
 import com.rbkmoney.mockapter.model.ExitStateModel;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @ToString
+@EqualsAndHashCode
 public class SleepIntent implements Intent {
 
-    @JsonProperty("timeout")
     private final int timeout;
 
     @JsonCreator
-    public SleepIntent(@JsonProperty("timeout") int timeout) {
+    public SleepIntent(@JsonProperty(value = "timeout", required = true) int timeout) {
         this.timeout = timeout;
     }
 
     @Override
-    public ExitStateModel getResult(EntryStateModel entryStateModel) {
+    public ExitStateModel buildResult(EntryStateModel entryStateModel) {
         return ExitStateModel.builder()
                 .entryStateModel(entryStateModel)
-                .intent(
-                        com.rbkmoney.damsel.proxy_provider.Intent.sleep(
-                                new com.rbkmoney.damsel.proxy_provider.SleepIntent(
-                                        Timer.timeout(timeout)
-                                )
-                        )
-                )
+                .sleepIntent(new com.rbkmoney.damsel.proxy_provider.SleepIntent(Timer.timeout(timeout)))
                 .build();
     }
 }

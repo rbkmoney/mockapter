@@ -19,8 +19,8 @@ public class IntentResult implements Result {
     }
 
     @Override
-    public ExitStateModel getResult(EntryStateModel entryStateModel) {
-        return intent.getResult(entryStateModel);
+    public ExitStateModel buildResult(EntryStateModel entryStateModel) {
+        return intent.buildResult(entryStateModel);
     }
 
 }

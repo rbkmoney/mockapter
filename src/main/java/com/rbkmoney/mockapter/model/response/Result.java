@@ -16,6 +16,6 @@ import com.rbkmoney.mockapter.model.ExitStateModel;
 })
 public interface Result {
 
-    ExitStateModel getResult(EntryStateModel entryStateModel);
+    ExitStateModel buildResult(EntryStateModel entryStateModel);
 
 }
