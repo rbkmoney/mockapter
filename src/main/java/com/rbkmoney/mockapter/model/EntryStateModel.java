@@ -1,13 +1,11 @@
 package com.rbkmoney.mockapter.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
 @Builder
 @ToString
 public class EntryStateModel {

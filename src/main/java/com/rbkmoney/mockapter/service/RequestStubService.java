@@ -6,6 +6,7 @@ import com.rbkmoney.mockapter.model.Rule;
 import com.rbkmoney.mockapter.model.response.Response;
 import com.rbkmoney.mockapter.model.response.delay.Delay;
 import com.rbkmoney.mockapter.util.RandomUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -16,26 +17,32 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class RequestStubService {
 
-    private AtomicReference<List<Rule>> rules = new AtomicReference<>(Collections.emptyList());
+    private AtomicReference<List<Rule>> rulesReference = new AtomicReference<>(Collections.emptyList());
 
     public ExitStateModel processRequest(EntryStateModel entryStateModel) {
+        log.info("Request: entryStateModel='{}'", entryStateModel);
         Rule rule = getRule(entryStateModel);
+        log.info("Found rule for request, rule='{}', entryStateModel='{}'", rule, entryStateModel);
         Response response = rule.getResponse();
         if (response.hasDelay()) {
             delay(response.getDelay());
         }
-        return response.getResult().buildResult(entryStateModel);
+        ExitStateModel exitStateModel = response.getResult().buildResult(entryStateModel);
+        log.info("Response: exitStateModel='{}', entryStateModel='{}'", exitStateModel, entryStateModel);
+        return exitStateModel;
     }
 
-    public void updateRules(List<Rule> rules) {
-        this.rules.getAndSet(rules);
+    public void updateRules(List<Rule> newRules) {
+        List<Rule> oldRules = rulesReference.getAndSet(newRules);
+        log.info("Rules have been updated, newRules='{}', oldRules='{}'", newRules, oldRules);
     }
 
     private Rule getRule(EntryStateModel entryStateModel) {
-        List<Rule> filteredRules = rules.get()
+        List<Rule> filteredRules = rulesReference.get()
                 .stream()
                 .filter(rule -> rule.getRequest().isHandle(entryStateModel))
                 .collect(Collectors.toList());
@@ -64,7 +71,9 @@ public class RequestStubService {
 
     private void delay(Delay delay) {
         try {
-            TimeUnit.MILLISECONDS.sleep(delay.nextTimeout());
+            long timeout = delay.nextTimeout();
+            log.info("Go in timeout, {} ms", timeout);
+            TimeUnit.MILLISECONDS.sleep(timeout);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
