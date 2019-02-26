@@ -57,22 +57,22 @@ public class ConsulService {
                 .filter(value -> value.getKey().equals(keyPath))
                 .findFirst()
                 .ifPresent(value -> {
-                    value.getValueAsString().ifPresent(
-                            rulesJson -> {
-                                try {
-                                    log.info("Trying to apply new rules, rulesJson='{}'", rulesJson);
-                                    requestStubService.updateRules(objectMapper.readValue(rulesJson, new TypeReference<List<Rule>>() {
-                                    }));
-                                    log.info("New rules have been applied, rulesJson='{}'", rulesJson);
-                                } catch (IOException ex) {
-                                    throw new UncheckedIOException(ex);
-                                }
-                            }
-                    );
+                    value.getValueAsString().ifPresent(this::uploadRules);
                 })
         );
         initializeRulesIfNotExists();
         cache.start();
+    }
+
+    public void uploadRules(String rulesJson) {
+        try {
+            log.info("Trying to apply new rules, rulesJson='{}'", rulesJson);
+            requestStubService.updateRules(objectMapper.readValue(rulesJson, new TypeReference<List<Rule>>() {
+            }));
+            log.info("New rules have been applied, rulesJson='{}'", rulesJson);
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
     }
 
     private void initializeRulesIfNotExists() {

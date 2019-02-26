@@ -46,10 +46,10 @@ public class DelayTest {
                         Delay.class
                 );
 
-            double average = LongStream.rangeClosed(1, 10000)
-                    .map(value -> delay.nextTimeout())
-                    .average().getAsDouble();
-            assertEquals(80, average, 0.8); // 0.8 VASHE POHUI
+        double average = LongStream.rangeClosed(1, 10000)
+                .map(value -> delay.nextTimeout())
+                .average().getAsDouble();
+        assertEquals(80, average, 0.8); // 0.8 VASHE POHUI
     }
 
 }

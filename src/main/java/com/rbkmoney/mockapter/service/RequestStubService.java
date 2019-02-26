@@ -6,6 +6,7 @@ import com.rbkmoney.mockapter.model.Rule;
 import com.rbkmoney.mockapter.model.response.Response;
 import com.rbkmoney.mockapter.model.response.delay.Delay;
 import com.rbkmoney.mockapter.util.RandomUtil;
+import com.rbkmoney.woody.api.trace.context.TraceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +74,7 @@ public class RequestStubService {
         try {
             long timeout = delay.nextTimeout();
             log.info("Go in timeout, {} ms", timeout);
-            TimeUnit.MILLISECONDS.sleep(timeout);
+            TimeUnit.MILLISECONDS.sleep(timeout - (System.currentTimeMillis() - TraceContext.getCurrentTraceData().getActiveSpan().getSpan().getTimestamp()));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

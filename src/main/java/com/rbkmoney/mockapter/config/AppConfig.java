@@ -21,14 +21,19 @@ public class AppConfig {
             @Value("#{'${consul.hosts}'.split(',')}") List<String> hosts,
             @Value("${consul.blacklistTimeInMillis}") long blacklistTimeInMillis
     ) {
-        return Consul.builder()
-                .withMultipleHostAndPort(
-                        hosts.stream()
-                                .map(host -> HostAndPort.fromString(host))
-                                .collect(Collectors.toList()),
-                        blacklistTimeInMillis
-                )
-                .build();
+        Consul.Builder builder = Consul.builder();
+        if (hosts.size() == 1) {
+            builder.withHostAndPort(HostAndPort.fromString(hosts.get(0)));
+        } else {
+            builder.withMultipleHostAndPort(
+                    hosts.stream()
+                            .map(HostAndPort::fromString)
+                            .collect(Collectors.toList()),
+                    blacklistTimeInMillis
+            );
+        }
+
+        return builder.build();
     }
 
     @Bean
