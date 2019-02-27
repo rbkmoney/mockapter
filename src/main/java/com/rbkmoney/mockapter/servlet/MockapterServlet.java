@@ -13,9 +13,9 @@ import java.io.IOException;
 @WebServlet("/adapter/${service}")
 public class MockapterServlet extends GenericServlet {
 
-    private final MockapterHandler handler;
+    private final transient MockapterHandler handler;
 
-    private Servlet servlet;
+    private transient Servlet servlet;
 
     @Override
     public void init(ServletConfig config) throws ServletException {

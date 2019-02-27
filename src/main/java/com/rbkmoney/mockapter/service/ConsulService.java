@@ -51,14 +51,13 @@ public class ConsulService {
 
     @PostConstruct
     public void init() {
-        cache.addListener(newValues -> newValues
-                .values()
-                .stream()
-                .filter(value -> value.getKey().equals(keyPath))
-                .findFirst()
-                .ifPresent(value -> {
-                    value.getValueAsString().ifPresent(this::uploadRules);
-                })
+        cache.addListener(
+                newValues -> newValues
+                        .values()
+                        .stream()
+                        .filter(value -> value.getKey().equals(keyPath))
+                        .findFirst()
+                        .ifPresent(value -> value.getValueAsString().ifPresent(this::uploadRules))
         );
         initializeRulesIfNotExists();
         cache.start();

@@ -1,6 +1,7 @@
 package com.rbkmoney.mockapter.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.net.HostAndPort;
@@ -45,7 +46,8 @@ public class AppConfig {
     public ObjectMapper objectMapper() {
         return new ObjectMapper()
                 .enable(SerializationFeature.INDENT_OUTPUT)
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL);
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
     }
 
 }

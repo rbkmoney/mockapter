@@ -24,6 +24,6 @@ public class UniformDelay implements Delay {
 
     @Override
     public long nextTimeout() {
-        return ThreadLocalRandom.current().nextLong(lower, upper + 1);
+        return ThreadLocalRandom.current().nextLong(lower, upper + 1L);
     }
 }

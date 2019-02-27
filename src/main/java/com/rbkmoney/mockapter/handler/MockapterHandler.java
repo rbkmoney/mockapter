@@ -33,7 +33,7 @@ public class MockapterHandler implements ProviderProxySrv.Iface {
     @Override
     public RecurrentTokenProxyResult generateToken(RecurrentTokenContext context) throws TException {
         EntryStateModel entryStateModel = recCtxToEntryStateModelConverter.convert(context);
-        entryStateModel.setMethod(Method.generate_token);
+        entryStateModel.setMethod(Method.GENERATE_TOKEN);
         ExitStateModel exitStateModel = requestStubService.processRequest(entryStateModel);
         return exitModelToRecTokenProxyResultConverter.convert(exitStateModel);
     }
@@ -41,7 +41,7 @@ public class MockapterHandler implements ProviderProxySrv.Iface {
     @Override
     public RecurrentTokenCallbackResult handleRecurrentTokenCallback(ByteBuffer callback, RecurrentTokenContext context) throws TException {
         EntryStateModel entryStateModel = recCtxToEntryStateModelConverter.convert(context);
-        entryStateModel.setMethod(Method.handle_recurrent_token_callback);
+        entryStateModel.setMethod(Method.HANDLE_RECURRENT_TOKEN_CALLBACK);
         ExitStateModel exitStateModel = requestStubService.processRequest(entryStateModel);
         return exitModelToRecTokenCallbackResultConverter.convert(exitStateModel);
     }
@@ -49,7 +49,7 @@ public class MockapterHandler implements ProviderProxySrv.Iface {
     @Override
     public PaymentProxyResult processPayment(PaymentContext context) throws TException {
         EntryStateModel entryStateModel = ctxToEntryModelConverter.convert(context);
-        entryStateModel.setMethod(Method.process_payment);
+        entryStateModel.setMethod(Method.PROCESS_PAYMENT);
         ExitStateModel exitStateModel = requestStubService.processRequest(entryStateModel);
         return exitModelToProxyResultConverter.convert(exitStateModel);
     }
@@ -57,7 +57,7 @@ public class MockapterHandler implements ProviderProxySrv.Iface {
     @Override
     public PaymentCallbackResult handlePaymentCallback(ByteBuffer callback, PaymentContext context) throws TException {
         EntryStateModel entryStateModel = ctxToEntryModelConverter.convert(context);
-        entryStateModel.setMethod(Method.handle_payment_callback);
+        entryStateModel.setMethod(Method.HANDLE_PAYMENT_CALLBACK);
         ExitStateModel exitStateModel = requestStubService.processRequest(entryStateModel);
         return exitModelToProxyCallbackResultConverter.convert(exitStateModel);
     }

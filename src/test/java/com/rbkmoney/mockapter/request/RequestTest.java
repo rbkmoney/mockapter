@@ -1,6 +1,7 @@
 package com.rbkmoney.mockapter.request;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.rbkmoney.mockapter.model.EntryStateModel;
@@ -17,7 +18,8 @@ import static org.junit.Assert.assertFalse;
 public class RequestTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper()
-            .configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+            .configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true)
+            .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
 
     @Test
     public void testRequestMatchingWithMethodAndStatus() throws IOException {
@@ -30,8 +32,8 @@ public class RequestTest {
         assertTrue(
                 request.isHandle(
                         EntryStateModel.builder()
-                                .method(Method.process_payment)
-                                .targetPaymentStatus(TargetPaymentStatus.processed)
+                                .method(Method.PROCESS_PAYMENT)
+                                .targetPaymentStatus(TargetPaymentStatus.PROCESSED)
                                 .build()
                 )
         );
@@ -39,7 +41,7 @@ public class RequestTest {
         assertFalse(
                 request.isHandle(
                         EntryStateModel.builder()
-                                .method(Method.process_payment)
+                                .method(Method.PROCESS_PAYMENT)
                                 .build()
                 )
         );
@@ -47,8 +49,8 @@ public class RequestTest {
         assertFalse(
                 request.isHandle(
                         EntryStateModel.builder()
-                                .method(Method.generate_token)
-                                .targetPaymentStatus(TargetPaymentStatus.processed)
+                                .method(Method.GENERATE_TOKEN)
+                                .targetPaymentStatus(TargetPaymentStatus.PROCESSED)
                                 .build()
                 )
         );
@@ -65,8 +67,8 @@ public class RequestTest {
         assertTrue(
                 request.isHandle(
                         EntryStateModel.builder()
-                                .method(Method.process_payment)
-                                .targetPaymentStatus(TargetPaymentStatus.processed)
+                                .method(Method.PROCESS_PAYMENT)
+                                .targetPaymentStatus(TargetPaymentStatus.PROCESSED)
                                 .build()
                 )
         );
@@ -74,7 +76,7 @@ public class RequestTest {
         assertTrue(
                 request.isHandle(
                         EntryStateModel.builder()
-                                .method(Method.process_payment)
+                                .method(Method.PROCESS_PAYMENT)
                                 .build()
                 )
         );
@@ -82,8 +84,8 @@ public class RequestTest {
         assertFalse(
                 request.isHandle(
                         EntryStateModel.builder()
-                                .method(Method.generate_token)
-                                .targetPaymentStatus(TargetPaymentStatus.processed)
+                                .method(Method.GENERATE_TOKEN)
+                                .targetPaymentStatus(TargetPaymentStatus.PROCESSED)
                                 .build()
                 )
         );

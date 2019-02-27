@@ -64,8 +64,8 @@ public class RequestStubService {
 
     private double getMaxWeight(List<Rule> rules) {
         return rules.stream()
-                .filter(rule -> rule.hasWeight())
-                .mapToDouble(rule -> rule.getWeight())
+                .filter(Rule::hasWeight)
+                .mapToDouble(Rule::getWeight)
                 .max()
                 .orElse(1.0);
     }

@@ -22,7 +22,7 @@ public class CtxToEntryModelConverter implements Converter<PaymentContext, Entry
         InvoicePayment payment = context.getPaymentInfo().getPayment();
         String invoiceWithPayment = ProxyProviderPackageCreators.createInvoiceWithPayment(context.getPaymentInfo());
 
-        EntryStateModel entryStateModel = EntryStateModel.builder()
+        return EntryStateModel.builder()
                 .targetPaymentStatus(
                         TBaseUtil.unionFieldToEnum(
                                 context.getSession().getTarget(),
@@ -34,8 +34,6 @@ public class CtxToEntryModelConverter implements Converter<PaymentContext, Entry
                 .paymentId(payment.getId())
                 .trxId(invoiceWithPayment)
                 .build();
-
-        return entryStateModel;
     }
 
 }
