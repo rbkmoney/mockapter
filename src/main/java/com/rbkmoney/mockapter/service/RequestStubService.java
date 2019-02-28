@@ -6,6 +6,7 @@ import com.rbkmoney.mockapter.model.Rule;
 import com.rbkmoney.mockapter.model.response.Response;
 import com.rbkmoney.mockapter.model.response.delay.Delay;
 import com.rbkmoney.mockapter.util.RandomUtil;
+import com.rbkmoney.woody.api.flow.error.WUnavailableResultException;
 import com.rbkmoney.woody.api.trace.context.TraceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,10 @@ public class RequestStubService {
                 .filter(rule -> rule.getRequest().isHandle(entryStateModel))
                 .collect(Collectors.toList());
 
+        if (filteredRules.isEmpty()) {
+            throw new WUnavailableResultException("Rule for request not found");
+        }
+
         double maxWeight = getMaxWeight(filteredRules);
         return RandomUtil.getWeightedRandom(
                 filteredRules.stream()
@@ -74,7 +79,11 @@ public class RequestStubService {
         try {
             long timeout = delay.nextTimeout();
             log.info("Go in timeout, {} ms", timeout);
-            TimeUnit.MILLISECONDS.sleep(timeout - (System.currentTimeMillis() - TraceContext.getCurrentTraceData().getActiveSpan().getSpan().getTimestamp()));
+            long initialTime = TraceContext.getCurrentTraceData().getActiveSpan().getSpan().getTimestamp();
+            if (initialTime > 0) {
+                timeout -= System.currentTimeMillis() - initialTime;
+            }
+            TimeUnit.MILLISECONDS.sleep(timeout);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

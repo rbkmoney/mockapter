@@ -8,10 +8,12 @@ import com.orbitz.consul.cache.KVCache;
 import com.rbkmoney.mockapter.model.Rule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -19,6 +21,7 @@ import java.util.List;
 
 @Slf4j
 @Service
+@ConditionalOnProperty(value = "consul.enabled", havingValue = "true")
 public class ConsulService {
 
     private final KeyValueClient keyValueClient;
@@ -49,7 +52,7 @@ public class ConsulService {
         this.cache = KVCache.newCache(keyValueClient, keyPath);
     }
 
-    @PostConstruct
+    @EventListener(ApplicationReadyEvent.class)
     public void init() {
         cache.addListener(
                 newValues -> newValues

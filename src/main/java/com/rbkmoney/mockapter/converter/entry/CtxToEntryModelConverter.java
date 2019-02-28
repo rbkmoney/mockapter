@@ -24,9 +24,9 @@ public class CtxToEntryModelConverter implements Converter<PaymentContext, Entry
 
         return EntryStateModel.builder()
                 .targetPaymentStatus(
-                        TBaseUtil.unionFieldToEnum(
-                                context.getSession().getTarget(),
-                                TargetPaymentStatus.class
+                        Enum.valueOf(
+                                TargetPaymentStatus.class,
+                                context.getSession().getTarget().getSetField().getFieldName().toUpperCase()
                         )
                 )
                 .parameters(context.getOptions())

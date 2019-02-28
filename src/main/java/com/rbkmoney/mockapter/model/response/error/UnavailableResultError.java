@@ -10,7 +10,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class UnavailableResultError implements Error {
 
-    @JsonProperty("reason")
     private final String reason;
 
     @JsonCreator

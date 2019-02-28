@@ -1,0 +1,58 @@
+[
+  {
+    "request": {
+      "method": "generate_token"
+    },
+    "response": {
+      "result": {
+        "intent": {
+          "sleep": {
+            "timeout": 5000
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "handle_recurrent_token_callback"
+    },
+    "response": {
+      "result": {
+        "intent": {
+          "sleep": {
+            "timeout": 5000
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "process_payment"
+    },
+    "response": {
+      "result": {
+        "intent": {
+          "sleep": {
+            "timeout": 5000
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "handle_payment_callback"
+    },
+    "response": {
+      "result": {
+        "intent": {
+          "sleep": {
+            "timeout": 5000
+          }
+        }
+      }
+    }
+  }
+]

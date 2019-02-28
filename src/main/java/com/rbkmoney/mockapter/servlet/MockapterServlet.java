@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-@WebServlet("/adapter/${service}")
+@WebServlet("/adapter/*")
 public class MockapterServlet extends GenericServlet {
 
     private final transient MockapterHandler handler;

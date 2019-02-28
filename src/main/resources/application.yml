@@ -19,7 +19,8 @@ info:
 service: test-adapter
 hostname: '#{T(java.net.InetAddress).getLocalHost().getHostName()}'
 consul:
-  hosts: consul1.bst1.rbkmoney.net:8500,consul2.bst1.rbkmoney.net:8500,consul3.bst1.rbkmoney.net:8500
+  enabled: false
+  hosts: #consul hosts
   blacklistTimeInMillis: 500
   keyPath: mockapter/${service}/hosts/${hostname}
   configuration: classpath:default-configuration.json
