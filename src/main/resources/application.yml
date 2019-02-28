@@ -16,3 +16,11 @@ spring:
 info:
   version: @project.version@
   stage: dev
+service: test-adapter
+hostname: '#{T(java.net.InetAddress).getLocalHost().getHostName()}'
+consul:
+  enabled: false
+  hosts: #consul hosts
+  blacklistTimeInMillis: 500
+  keyPath: mockapter/${service}/hosts/${hostname}
+  configuration: classpath:default-configuration.json

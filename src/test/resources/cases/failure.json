@@ -1,0 +1,66 @@
+[
+  {
+    "request": {
+      "method": "generate_token"
+    },
+    "response": {
+      "result": {
+        "intent": {
+          "finish": {
+            "failure": {
+              "sub": "invalid:invalid:invalid:invalid:invalid:invalid"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "handle_recurrent_token_callback"
+    },
+    "response": {
+      "result": {
+        "intent": {
+          "finish": {
+            "failure": {
+              "sub": "invalid:invalid:invalid:invalid:invalid:invalid"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "process_payment"
+    },
+    "response": {
+      "result": {
+        "intent": {
+          "finish": {
+            "failure": {
+              "sub": "invalid:invalid:invalid:invalid:invalid:invalid"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "handle_payment_callback"
+    },
+    "response": {
+      "result": {
+        "intent": {
+          "finish": {
+            "failure": {
+              "sub": "invalid:invalid:invalid:invalid:invalid:invalid"
+            }
+          }
+        }
+      }
+    }
+  }
+]

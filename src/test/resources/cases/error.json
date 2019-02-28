@@ -1,0 +1,60 @@
+[
+  {
+    "request": {
+      "method": "generate_token"
+    },
+    "response": {
+      "result": {
+        "error": {
+          "unavailable_result": {
+            "reason": "Deadline reached"
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "handle_recurrent_token_callback"
+    },
+    "response": {
+      "result": {
+        "error": {
+          "undefined_result": {
+            "reason": "Result not expected"
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "process_payment"
+    },
+    "response": {
+      "result": {
+        "intent": {
+          "finish": {
+            "success": {
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "handle_payment_callback"
+    },
+    "response": {
+      "result": {
+        "intent": {
+          "finish": {
+            "success": {
+            }
+          }
+        }
+      }
+    }
+  }
+]
