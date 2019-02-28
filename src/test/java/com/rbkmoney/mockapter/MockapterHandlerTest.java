@@ -20,6 +20,7 @@ import com.rbkmoney.woody.thrift.impl.http.THSpawnClientBuilder;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -94,6 +95,7 @@ public class MockapterHandlerTest extends MockapterApplicationTest {
     }
 
     @Test
+    @Ignore
     public void testDeltaWithDelay() throws Exception {
         uploadRulesFromJsonString("[{'request':{'method':'generate_token'},'response':{'delay':{'type':'fixed','value':10},'result':{'intent':{'finish':{'success':{}}}}}}]");
         client.generateToken(buildTBase(RecurrentTokenContext.class));
