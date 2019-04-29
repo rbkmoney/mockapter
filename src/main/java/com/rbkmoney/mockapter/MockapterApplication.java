@@ -9,7 +9,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 public class MockapterApplication extends SpringApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MockapterApplication.class);
+        SpringApplication.run(MockapterApplication.class, args);
     }
 
 }
