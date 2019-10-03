@@ -23,4 +23,5 @@ consul:
   hosts: #consul hosts
   blacklistTimeInMillis: 500
   keyPath: mockapter/${service}/hosts/${hostname}
-  configuration: classpath:default-configuration.json
+
+configuration.resource: classpath:default-configuration.json

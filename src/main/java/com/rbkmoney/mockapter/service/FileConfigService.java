@@ -32,7 +32,7 @@ public class FileConfigService {
     public FileConfigService(
             RequestStubService requestStubService,
             ObjectMapper objectMapper,
-            @Value("${consul.configuration}") Resource defaultConfigResource
+            @Value("${configuration.resource}") Resource defaultConfigResource
     ) {
         this.requestStubService = requestStubService;
         this.objectMapper = objectMapper;
