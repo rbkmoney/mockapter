@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 @Service
 @ConditionalOnProperty(value = "consul.enabled", havingValue = "true")
-public class ConsulService {
+public class ConsulConfigService {
 
     private final KeyValueClient keyValueClient;
 
@@ -37,12 +37,12 @@ public class ConsulService {
     private final KVCache cache;
 
 
-    public ConsulService(
+    public ConsulConfigService(
             KeyValueClient keyValueClient,
             RequestStubService requestStubService,
             ObjectMapper objectMapper,
             @Value("${consul.keyPath}") String keyPath,
-            @Value("${consul.configuration}") Resource defaultConfigResource
+            @Value("${configuration.resource}") Resource defaultConfigResource
     ) {
         this.keyValueClient = keyValueClient;
         this.requestStubService = requestStubService;
