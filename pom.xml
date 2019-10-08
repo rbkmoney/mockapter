@@ -92,6 +92,11 @@
             <version>1.18.4</version>
         </dependency>
         <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>custom-actuator-endpoints</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.orbitz.consul</groupId>
             <artifactId>consul-client</artifactId>
             <version>1.3.2</version>
