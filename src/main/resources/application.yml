@@ -7,6 +7,10 @@ management:
     export:
       statsd:
         flavor: etsy
+  endpoint:
+    health:
+      show-details: always
+
 spring:
   application:
     name: @project.name@
