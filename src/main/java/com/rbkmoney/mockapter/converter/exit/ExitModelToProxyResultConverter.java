@@ -34,7 +34,7 @@ public class ExitModelToProxyResultConverter implements Converter<ExitStateModel
                 Collections.emptyMap()
         );
         return ProxyProviderPackageCreators.createPaymentProxyResult(
-                createFinishIntentSuccess(),
+                createFinishIntentSuccessWithToken(entryStateModel.getInvoiceId() + "." + entryStateModel.getPaymentId()),
                 new byte[0],
                 transactionInfo
         );
