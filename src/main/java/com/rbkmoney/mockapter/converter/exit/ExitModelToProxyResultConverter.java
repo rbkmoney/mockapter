@@ -22,22 +22,32 @@ public class ExitModelToProxyResultConverter implements Converter<ExitStateModel
 
     @Override
     public PaymentProxyResult convert(ExitStateModel exitStateModel) {
-        EntryStateModel entryStateModel = exitStateModel.getEntryStateModel();
         if (exitStateModel.hasFailure()) {
             return createProxyResultFailure(exitStateModel.getFailure());
         } else if (exitStateModel.hasSleepIntent()) {
             return createPaymentProxyResultWithSleepIntent(exitStateModel);
         }
 
+        EntryStateModel entryStateModel = exitStateModel.getEntryStateModel();
         TransactionInfo transactionInfo = createTransactionInfo(
                 entryStateModel.getTrxId(),
                 Collections.emptyMap()
         );
         return ProxyProviderPackageCreators.createPaymentProxyResult(
-                createFinishIntentSuccessWithToken(entryStateModel.getInvoiceId() + "." + entryStateModel.getPaymentId()),
+                buildFinishIntent(entryStateModel),
                 new byte[0],
                 transactionInfo
         );
+    }
+
+    private Intent buildFinishIntent(EntryStateModel entryStateModel) {
+        switch (entryStateModel.getTargetPaymentStatus()) {
+            case PROCESSED:
+            case CAPTURED:
+                return createFinishIntentSuccessWithToken(entryStateModel.getInvoiceId() + "." + entryStateModel.getPaymentId());
+            default:
+                return createFinishIntentSuccess();
+        }
     }
 
     private PaymentProxyResult createPaymentProxyResultWithSleepIntent(ExitStateModel exitStateModel) {
